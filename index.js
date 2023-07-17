@@ -28,43 +28,24 @@ move(newItem('assets/green-character.gif')).to(400, 450);
 
 // Initial Character
 const character = newImage('assets/green-character/static.gif')
-character.style.position = 'fixed'
-let direction = null;
-move(character).to(100, 250)
-let x = 100;
-let y = 250;
 
-setInterval(function(){ 
+function handleDirectionChange(direction){
+    if(direction === null){
+        character.src = 'assets/green-character/static.gif'
+    }
     if(direction === 'west'){
-        x = x - 1
+        character.src = 'assets/green-character/west.gif'
     }
     if(direction === 'north'){
-        y = y + 1
+        character.src = 'assets/green-character/north.gif'
     }
     if(direction === 'east'){
-        x = x + 1
+        character.src = 'assets/green-character/east.gif'
     }
     if(direction === 'south'){
-        y = y - 1
+        character.src = 'assets/green-character/south.gif'
     }
-    character.style.left = x + 'px'
-    character.style.bottom = y + 'px'
-}, 1)
-                                  
-document.addEventListener('keydown', function(e){
-    if (e.repeat) return;
-                    
-    if(e.key === 'ArrowLeft'){
-        direction = 'west'
-    }
-    if(e.key === 'ArrowUp'){
-        direction = 'north'
-    }
-    if(e.key === 'ArrowRight'){
-        direction = 'east'
-    }
-    if(e.key === 'ArrowDown'){
-        direction = 'south'
-    }
-});
+}
+
+move(character).movewithArrowKeys(100, 250, handleDirectionChange)
 
