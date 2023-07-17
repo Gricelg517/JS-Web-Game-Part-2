@@ -1,41 +1,70 @@
-function newImage(url, left, bottom){
-    let object = document.createElement('img')
-    object.src = url
-    object.style.position = 'fixed'
-    object.style.left = left + 'px'
-    object.style.bottom = bottom + 'px'
-    document.body.append(object)
-    return object
-}
+// Display Inventory
+const inventory = newInventory();
 
-function newItem(url, left, bottom){
-    let item = newImage(url, left, bottom)
-}
+// Add items
+newItem('assets/sword.png', 500, 405);
+newItem('assets/shield.png', 165, 185);
+newItem('assets/staff.png', 600, 100);
 
-function newInventory(){
-    let inventory = document.createElement('div')
-    inventory.style.position = 'fixed'
-    inventory.style.bottom = '0px';
-    inventory.style.left = '0px'
-    inventory.style.width = '100%'
-    inventory.style.height = '100px'
-    inventory.style.display = 'flex'
-    inventory.style.flexDirection = 'row'
-    inventory.style.alignItems = 'center'
-    inventory.style.justifyContent = 'space-evenly'
-    inventory.style.border = '2px solid black'
-    inventory.style.backgroundColor = 'brown'
-    document.body.append(inventory)
-}
+// Display Inventory
+move(inventory).to(0, 0);
 
-newInventory()
-newImage('assets/green-character.gif', 100, 250)
-newImage('assets/tree.png', 200, 450)
-newImage('assets/pillar.png', 350, 250)
-newImage('assets/pine-tree.png', 450, 350)
-newImage('assets/crate.png', 150, 350)
-newImage('assets/well.png', 500, 575)
+// Display Images
+move(newImage('assets/green-character.gif')).to(100, 250);
+move(newImage('assets/tree.png')).to(200, 450);
+move(newImage('assets/pillar.png')).to(350, 250);
+move(newImage('assets/pine-tree.png')).to(450, 350);
+move(newImage('assets/crate.png')).to(150, 350);
+move(newImage('assets/well.png')).to(500, 575);
+move(newItem('assets/sword.png')).to(500, 555);
+move(newItem('assets/shield.png')).to(165, 335);
+move(newItem('assets/staff.png')).to(600, 250);
 
-newItem('assets/sword.png', 500, 555)
-newItem('assets/shield.png', 165, 335)
-newItem('assets/staff.png', 600, 250)
+//Display Items
+move(newItem('assets/sword.png')).to(500, 555);
+move(newItem('assets/shield.png')).to(165 , 335);
+move(newItem('assets/staff.png')).to(600, 250);
+move(newItem('assets/green-character.gif')).to(400, 450);
+
+// Initial Character
+const character = newImage('assets/green-character/static.gif')
+character.style.position = 'fixed'
+let direction = null;
+move(character).to(100, 250)
+let x = 100;
+let y = 250;
+
+setInterval(function(){ 
+    if(direction === 'west'){
+        x = x - 1
+    }
+    if(direction === 'north'){
+        y = y + 1
+    }
+    if(direction === 'east'){
+        x = x + 1
+    }
+    if(direction === 'south'){
+        y = y - 1
+    }
+    character.style.left = x + 'px'
+    character.style.bottom = y + 'px'
+}, 1)
+                                  
+document.addEventListener('keydown', function(e){
+    if (e.repeat) return;
+                    
+    if(e.key === 'ArrowLeft'){
+        direction = 'west'
+    }
+    if(e.key === 'ArrowUp'){
+        direction = 'north'
+    }
+    if(e.key === 'ArrowRight'){
+        direction = 'east'
+    }
+    if(e.key === 'ArrowDown'){
+        direction = 'south'
+    }
+});
+
